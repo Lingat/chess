@@ -19,13 +19,40 @@ class Board {
          }
          this.placePieces();
 
+    }
 
+    updatePieces() {
+        for(var i = 0; i < this.height; i++) {
+            for(var j = 0; j < this.width; j++) {
+                if(this.board[i][j] != "") {
+                    try {
+            
+                    var piece = this.board[i][j];
+                    if(piece instanceof Pawn || piece instanceof Bishop) {
+                        this.board[i][j] = "";
+                        this.board[piece.y][piece.x] = piece;
+
+                    }
+
+                    }
+                    catch {
+                        
+                    }
+                }
+          
+             }
+         }
+    }
+
+    update() {
+       
+         this.updatePieces();
     }
 
     placePawns() {
         for(var i = 0; i < this.width; i++) {
-            this.board[6][i] = "WPAWN";
-            this.board[1][i] = "BPAWN";
+            this.board[6][i] = new Pawn(i, 6, "white", "WPAWN");
+            this.board[1][i] = new Pawn(i, 1, "black", "BPAWN");;
         }
     }
 
@@ -37,10 +64,10 @@ class Board {
     }
 
     placeBishops() {
-        this.board[0][2] = "BBISHOP";
-        this.board[7][2] = "WBISHOP";
-        this.board[0][5] = "BBISHOP";
-        this.board[7][5] = "WBISHOP";
+        this.board[0][2] = new Bishop(2, 0, "black", "BBISHOP")
+        this.board[7][2] = new Bishop(2, 7, "white", "WBISHOP");
+        this.board[0][5] = new Bishop(5, 0, "black", "BBISHOP");
+        this.board[7][5] = new Bishop(5, 7, "white", "WBISHOP");
     }
     
     placeRooks() {
